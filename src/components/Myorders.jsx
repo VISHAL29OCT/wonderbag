@@ -7,13 +7,14 @@ import { Link } from 'react-router-dom'
 function Myorders() {
     const [orders, setOrders] = useState([])
     const [openOrderId, setOpenOrderId] = useState(null)
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000"
 
     useEffect(() => {
         const token = localStorage.getItem("token")
 
         if (!token) return
 
-        fetch("http://localhost:3000/orders", {
+        fetch(`${API_URL}/orders`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

@@ -7,6 +7,7 @@ function Myprofile() {
   })
 
   const [isEditing, setIsEditing] = useState(false)
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000"
 
   const handleChange = (e) => {
     setProfile({
@@ -16,7 +17,7 @@ function Myprofile() {
   }
 
   const handleSave = async () => {
-    await fetch("http://localhost:3000/myprofile", {
+    await fetch(`${API_URL}/myprofile`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +36,7 @@ function Myprofile() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3000/myprofile", {
+    fetch(`${API_URL}/myprofile`, {
       headers: {
         Authorization: ` Bearer ${localStorage.getItem("token")}`
       }

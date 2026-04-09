@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import "../App.css"
-import { CartContext } from "../context/cartContext"
+import CartContext from "../context/CartContext"
 
 
 function Payment() {
     const { setCart } = useContext(CartContext)
     const { state } = useLocation()
     const navigate = useNavigate()
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000"
 
     const [method, setMethod] = useState("COD")
     const [loading, setLoading] = useState(false)
@@ -28,7 +29,7 @@ function Payment() {
             return
         }
 
-        const res = await fetch("http://localhost:3000/order", {
+        const res = await fetch(`${API_URL}/order`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -49,7 +50,7 @@ function Payment() {
         }
 
         // address save
-        await fetch("http://localhost:3000/address", {
+        await fetch(`${API_URL}/address`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -65,7 +66,7 @@ function Payment() {
 
         // remove cart items
         for (const item of cart) {
-            await fetch("http://localhost:3000/cart/remove", {
+            await fetch(`${API_URL}/cart/remove`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -82,7 +83,7 @@ function Payment() {
         const token = localStorage.getItem("token")
 
         // create order from backend
-        const res = await fetch("http://localhost:3000/create-order", {
+        const res = await fetch(`${API_URL}/create-order` {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -110,7 +111,7 @@ function Payment() {
 
             handler: async function (response) {
                 // payment success
-                await fetch("http://localhost:3000/order", {
+                await fetch(`${API_URL}/order`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -121,7 +122,7 @@ function Payment() {
                         state: userState, houseno, cart
                     })
                 })
-                await fetch("http://localhost:3000/address", {
+                await fetch(`${API_URL}/address`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -137,7 +138,7 @@ function Payment() {
 
                 // 3️⃣ 🔥 CART CLEAR (YAHI LIKHNA THA)
                 for (const item of cart) {
-                    await fetch("http://localhost:3000/cart/remove", {
+                    await fetch(`${API_URL}/cart/remove`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

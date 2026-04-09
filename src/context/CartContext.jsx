@@ -6,12 +6,13 @@ export const CartProvider = ({ children }) => {
 
   const [cartOpen, setCartOpen] = useState(false)
   const [cart, setCart] = useState([])
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000"
 
   useEffect(() => {
     const token = localStorage.getItem("token")
     if (!token) return
 
-    fetch("http://localhost:3000/cart", {
+    fetch(`${API_URL}/cart`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -29,7 +30,7 @@ export const CartProvider = ({ children }) => {
       return
     }
 
-    const res = await fetch("http://localhost:3000/cart", {
+    const res = await fetch(`${API_URL}/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +49,7 @@ export const CartProvider = ({ children }) => {
   const removeItem = async (id) => {
     const token = localStorage.getItem("token")
 
-    const res = await fetch("http://localhost:3000/cart/remove", {
+    const res = await fetch(`${API_URL}/cart/remove`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -64,7 +65,7 @@ export const CartProvider = ({ children }) => {
   const updateQty = async (id, change) => {
     const token = localStorage.getItem("token")
 
-    const res = await fetch("http://localhost:3000/cart/update", {
+    const res = await fetch(`${API_URL}/update`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

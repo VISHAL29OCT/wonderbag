@@ -10,6 +10,7 @@ const ProductDetails = () => {
     const [wishlisted, setWishlisted] = useState(false)
     const [activeDetails, setActiveDetails] = useState(null)
     const { id } = useParams()
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000"
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -18,7 +19,7 @@ const ProductDetails = () => {
     const [product, setProduct] = useState(null)
 
     useEffect(() => {
-        fetch(`http://localhost:3000/product/${id}`)
+        fetch(`${API_URL}/product/${id}`)
             .then(res => res.json())
             .then(data => {
                 if (data.message) {
@@ -37,7 +38,7 @@ const ProductDetails = () => {
         if(!product) return
   const token = localStorage.getItem("token")
 
-  fetch("http://localhost:3000/wishlist", {
+  fetch(`${API_URL}/wishlist`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -65,7 +66,7 @@ const ProductDetails = () => {
 
   if (wishlisted) {
     // ❌ REMOVE
-    await fetch("http://localhost:3000/wishlist/remove", {
+    await fetch(`${API_URL}/wishlist/remove`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +76,7 @@ const ProductDetails = () => {
     })
   } else {
     // ✅ ADD
-    await fetch("http://localhost:3000/wishlist", {
+    await fetch(`${API_URL}/wishlist`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

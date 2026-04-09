@@ -8,6 +8,7 @@ function Checkout() {
     const { cart, setCart } = useContext(CartContext)
     const [orderSuccess, setOrderSuccess] = useState(false)
     const navigate = useNavigate()
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000"
 
     const [name, setName] = useState("")
     const [address, setAddress] = useState("")
@@ -60,7 +61,7 @@ function Checkout() {
     useEffect(() => {
         const token = localStorage.getItem("token")
 
-        fetch("http://localhost:3000/profile", {
+        fetch(`${API_URL}/profile`, {
             headers: {
                 Authorization: `Bearer ${token}` // ✅ FIXED
             }

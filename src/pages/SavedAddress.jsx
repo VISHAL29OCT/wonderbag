@@ -15,8 +15,9 @@ function SavedAddress() {
 
   const makeDefault = async (index) => {
     const token = localStorage.getItem("token")
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000"
 
-    const res = await fetch("http://localhost:3000/address/default", {
+    const res = await fetch(`${API_URL}/address/default`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +36,7 @@ function SavedAddress() {
   useEffect(() => {
     const token = localStorage.getItem("token")
 
-    fetch("http://localhost:3000/profile", {
+    fetch(`${API_URL}/profile`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -49,7 +50,7 @@ function SavedAddress() {
   const handleUpdate = async () => {
     const token = localStorage.getItem("token")
 
-    const res = await fetch("http://localhost:3000/address/update", {
+    const res = await fetch(`${API_URL}/address/update`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +86,7 @@ function SavedAddress() {
   const handleDelete = async (index) => {
     const token = localStorage.getItem("token")
 
-    const res = await fetch("http://localhost:3000/address/delete", {
+    const res = await fetch(`${API_URL}/address/delete`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -102,7 +103,7 @@ function SavedAddress() {
   const handleAdd = async () => {
     const token = localStorage.getItem("token")
 
-    const res = await fetch("http://localhost:3000/address", {
+    const res = await fetch(`${API_URL}/address`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
