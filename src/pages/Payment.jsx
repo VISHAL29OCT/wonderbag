@@ -83,7 +83,7 @@ function Payment() {
         const token = localStorage.getItem("token")
 
         // create order from backend
-        const res = await fetch(`${API_URL}/create-order` {
+        const res = await fetch(`${API_URL}/create-order`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -95,7 +95,7 @@ function Payment() {
         const data = await res.json()
 
         const options = {
-            key: "rzp_test_SYesSLl7BRtpC1",
+            key: process.env.REACT_APP_RAZORPAY_KEY,
             amount: data.amount,
             currency: "INR",
             name: "Your Store",
@@ -211,7 +211,7 @@ function Payment() {
 
             {/* RIGHT SIDE */}
             <div className="payment-right">
-                <div className="card-paymnet">
+                <div className="card-payment">
                     <h3>Order Summary</h3>
 
                     {/* cart items list */}
