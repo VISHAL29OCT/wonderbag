@@ -21,7 +21,7 @@ import SavedAddress from './pages/SavedAddress.jsx'
 import Shipping from './pages/Shipping.jsx'
 import Payment from './pages/Payment.jsx'
 import Wishlist from './pages/Wishlist.jsx'
-import Faq from './pages/faq.jsx'
+import Faq from './pages/Faq.jsx'
 
 function AppContent() {
 
