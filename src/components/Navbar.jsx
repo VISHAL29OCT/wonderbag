@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Profile from './Profile'
-import { CartContext } from '../context/cartContext'
+import { CartContext } from '../context/CartContext'
 import { NavLink } from 'react-router-dom'
 
 const Navbar = ({ search, setSearch }) => {

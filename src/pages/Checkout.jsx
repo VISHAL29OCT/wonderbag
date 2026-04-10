@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import "../App.css"
 import { Link, useNavigate } from 'react-router-dom'
-import { CartContext } from '../context/cartContext'
+import { CartContext } from '../context/CartContext'
 
 function Checkout() {
     const { cart, setCart } = useContext(CartContext)

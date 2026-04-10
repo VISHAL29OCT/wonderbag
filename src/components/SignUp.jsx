@@ -78,7 +78,7 @@ function SignUp() {
 
         <button type='submit'>Signup</button>
       </form>
-      <p>Already Have A Account ? <Link to="/SignIn">signin</Link></p>
+      <p>Already Have An Account ? <Link to="/SignIn">signin</Link></p>
 
 
 

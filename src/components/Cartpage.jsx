@@ -3,7 +3,7 @@ import { useState } from 'react'
 import "../App.css"
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
-import CartContext from '../context/cartContext'
+import CartContext from '../context/CartContext'
 
 const Cartpage = () => {
     const { cart, removeItem, updateQty, setCartOpen } = useContext(CartContext)

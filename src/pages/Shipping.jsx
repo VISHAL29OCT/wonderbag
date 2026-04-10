@@ -20,7 +20,7 @@ const Shipping = () => {
       <section>
         <h2>2. Delivery Time</h2>
         <p>
-          Orders are usually delivered within <strong>5–7 business days</strong>.
+          Orders are usually delivered within <strong>5 - 7 business days</strong>.
           Delivery time may vary depending on your location and availability of products.
         </p>
       </section>
@@ -28,7 +28,7 @@ const Shipping = () => {
       <section>
         <h2>3. Order Processing</h2>
         <p>
-          Orders are processed within 24–48 hours after successful payment confirmation.
+          Orders are processed within 24 - 48 hours after successful payment confirmation.
         </p>
       </section>
 
