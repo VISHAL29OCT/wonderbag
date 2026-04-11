@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 function Myorders() {
     const [orders, setOrders] = useState([])
     const [openOrderId, setOpenOrderId] = useState(null)
-   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
 
     useEffect(() => {
         const token = localStorage.getItem("token")
@@ -33,16 +33,16 @@ function Myorders() {
         <>
             < div className='container-nav'>
                 <Link to="/">
-                    <h5 style={{ color: "white" }}>Home </h5>
+                    <h5>Home </h5>
                 </Link>
 
                 <span> /</span>
                 <Link to="/myprofile">
-                    <h5 style={{ color: "white" }}>Profile </h5>
+                    <h5>Profile </h5>
                 </Link>
                 <span> /</span>
                 <Link to="/orders">
-                    <h5 style={{ color: "white" }}>Orders</h5>
+                    <h5 >Orders</h5>
                 </Link>
             </div>
 
@@ -83,28 +83,26 @@ function Myorders() {
                                     <div className='order-row'>
 
                                         <img src={item.image} alt={item.name} />
+
                                         <div className="order-details">
                                             <h4>{item.name}</h4>
                                             <p>Rs {item.price}</p>
                                             <p>Qty: {item.quantity}</p>
                                         </div>
-
-
-                                        <div className="order-status">
-                                            <span>{order.status || "Delivered"}</span>
-                 <button onClick={() => setOpenOrderId(openOrderId === order._id ? null : order._id)}>
-                                                View Details
-                                            </button>
-
-                                            <div className="return">
-                                                <button>Return</button>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
-                            ))}
 
+                            ))}
+                            <div className="order-status">
+                                <span>{order.status || "Delivered"}</span>
+                                <button onClick={() => setOpenOrderId(openOrderId === order._id ? null : order._id)}>
+                                    View Details
+                                </button>
+
+                                <div className="return">
+                                    <button>Return</button>
+                                </div>
+                            </div>
                             {openOrderId === order._id && (
                                 <div className="order-footer">
                                     <h4>Details:</h4>

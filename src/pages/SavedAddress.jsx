@@ -12,10 +12,10 @@ function SavedAddress() {
   const [editingIndex, setEditingIndex] = useState(null)
   const [addresses, setAddresses] = useState([])
   const [adding, setAdding] = useState(false)
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
 
   const makeDefault = async (index) => {
     const token = localStorage.getItem("token")
-    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000"
 
     const res = await fetch(`${API_URL}/address/default`, {
       method: "POST",
@@ -43,9 +43,9 @@ function SavedAddress() {
     })
       .then(res => res.json())
       .then(user => setAddresses(user.addresses || []))
+      .catch(err => console.log("Error loading address:", err))
 
-
-  }, [])
+  }, [API_URL])
 
   const handleUpdate = async () => {
     const token = localStorage.getItem("token")
@@ -116,7 +116,7 @@ function SavedAddress() {
         state,
         pincode,
         houseno,
-        isDefault: false
+        isDefault: false,
       })
     })
 
@@ -129,7 +129,7 @@ function SavedAddress() {
   return (
     <div className="saved-address">
       <h3>Saved Addresses</h3>
-      
+
       <div className="address-grid">
 
         {addresses.map((addr, index) => (
@@ -190,19 +190,19 @@ function SavedAddress() {
         ))}
 
         {adding && (
-        <div className="address-card">
+          <div className="address-card">
 
-          <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-          <input placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
-          <input placeholder="House No" value={houseno} onChange={(e) => setHouseno(e.target.value)} />
-          <input placeholder="Pincode" value={pincode} onChange={(e) => setPincode(e.target.value)} />
-          <input placeholder="State" value={state} onChange={(e) => setState(e.target.value)} />
-          <input placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+            <input placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)} />
+            <input placeholder="House No" value={houseno} onChange={(e) => setHouseno(e.target.value)} />
+            <input placeholder="Pincode" value={pincode} onChange={(e) => setPincode(e.target.value)} />
+            <input placeholder="State" value={state} onChange={(e) => setState(e.target.value)} />
+            <input placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
 
-          <button onClick={handleAdd}>Save</button>
-        </div>
-      )}
-        <div className= {`address-card add-card ${adding ? "editing" : ""} `} onClick={() => {
+            <button onClick={handleAdd}>Save</button>
+          </div>
+        )}
+        <div className={`address-card add-card ${adding ? "editing" : ""} `} onClick={() => {
           setAdding(true)
           setEditingIndex(null)
 
@@ -214,13 +214,13 @@ function SavedAddress() {
           setPincode("")
           setHouseno("")
         }}>
-          
+
           <h2>＋</h2>
-          
+
           <p>Add New Address</p>
-          
+
         </div>
-        
+
       </div>
 
 

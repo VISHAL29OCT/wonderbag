@@ -366,8 +366,10 @@ app.post("/login", async (req, res) => {
 })
 
 app.post("/order", authMiddleware, async (req, res) => {
+ console.log("🔥 BACKEND HIT HUA")
+    console.log("👉 BACKEND RECEIVED DISCOUNT:", req.body.discount)
     const userId = req.user.id
-    const { name, address, phone, cart, pincode, state, houseno } = req.body
+    const { name, address, phone, cart, pincode, state, houseno, discount = 0 } = req.body
 
     if (!name || !address || !phone || !cart || cart.length === 0 || !state || !houseno || !pincode) {
         return res.status(400).json({ message: "Invalid order data" })
@@ -376,9 +378,11 @@ app.post("/order", authMiddleware, async (req, res) => {
         return res.status(400).json({ message: "Invalid phone number" })
     }
 
-    const total = cart.reduce(
-        (sum, item) => sum + item.price * item.quantity, 0
-    )
+    const subtotal = cart.reduce(
+  (sum, item) => sum + item.price * item.quantity, 0
+)
+
+const total = Math.max(0, subtotal - discount)
 
     const order = {
         userId,
@@ -391,7 +395,9 @@ app.post("/order", authMiddleware, async (req, res) => {
     const newOrder = new Order(order)
     await newOrder.save()
     res.json({ message: "order placed successfully" })
-})
+     
+}
+)
 
 app.post("/cart", authMiddleware, async (req, res) => {
     const { product, quantity } = req.body

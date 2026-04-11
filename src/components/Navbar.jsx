@@ -39,7 +39,7 @@ const Navbar = ({ search, setSearch }) => {
 
 
   return (
-    <nav className='navbar'>
+    <div className='navbar'>
       <Link to="/" className='logo'>wonder</Link>
 
       <ul className="navright">
@@ -100,7 +100,7 @@ const Navbar = ({ search, setSearch }) => {
       {sidebarOpen && (
         <div className='overlay' onClick={() => setSidebarOpen(false)}> </div>
       )}
-    </nav>
+    </div>
   )
 }
 

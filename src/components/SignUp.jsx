@@ -69,7 +69,7 @@ function SignUp() {
   return (
 
     <div className='auth-container'>
-      <h2>Hey welcome to <span>Wonder </span> ! Let's PackUp</h2>
+      <h2 className='heading'>Start your journey with Wonder</h2>
       <form onSubmit={handleSignup}>
         <input type="text" placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />
         <input type="email" placeholder=' Enter your Email' value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -78,7 +78,7 @@ function SignUp() {
 
         <button type='submit'>Signup</button>
       </form>
-      <p>Already Have An Account ? <Link to="/SignIn">signin</Link></p>
+      <p>Already Have An Account ? <Link to="/SignIn"> signin</Link></p>
 
 
 

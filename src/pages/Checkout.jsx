@@ -3,11 +3,15 @@ import { useState, useEffect, useContext } from 'react'
 import "../App.css"
 import { Link, useNavigate } from 'react-router-dom'
 import { CartContext } from '../context/CartContext'
+import { useLocation } from "react-router-dom"
 
 function Checkout() {
     const { cart, setCart } = useContext(CartContext)
     const [orderSuccess, setOrderSuccess] = useState(false)
     const navigate = useNavigate()
+    const location = useLocation()
+const discount = location.state?.discount || 0
+    
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
 
     const [name, setName] = useState("")
@@ -20,7 +24,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
     const total = (cart || []).reduce(
         (sum, item) => sum + item.price * item.quantity, 0
     )
-
+const finalTotal = total - discount
 
     const handlePincode = (value) => {
         setPincode(value)
@@ -52,7 +56,8 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
       state,
       houseno,
       cart,
-      total
+      total:total,
+      discount
     }
   })
 }
@@ -126,7 +131,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
                         </div>
                     ))}
 
-                    <h4>Total : Rs {total.toFixed(2)}</h4>
+                    <h4>Total : Rs {finalTotal.toFixed(2)}</h4>
 
                     <Link to="/products">
                         <button type='button'>Back</button>

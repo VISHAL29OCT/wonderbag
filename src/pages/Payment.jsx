@@ -8,7 +8,8 @@ function Payment() {
     const { setCart } = useContext(CartContext)
     const { state } = useLocation()
     const navigate = useNavigate()
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
+  
 
     const [method, setMethod] = useState("COD")
     const [loading, setLoading] = useState(false)
@@ -17,9 +18,13 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
         return <h2 style={{ textAlign: "center" }}>No data found</h2>
     }
 
-    const { name, address, phone, pincode, state: userState, houseno, cart, total } = state
+    const { name, address, phone, pincode, state: userState, houseno, cart, total, discount } = state
+    const finalTotal = total - (discount || 0)
+    console.log("👉 PAYMENT PAGE DISCOUNT:", discount)
 
     const handlePlaceOrder = async () => {
+            console.log("👉 SENDING DISCOUNT TO BACKEND:", discount)
+            console.log("🔥 FUNCTION CALLED")
         setLoading(true)
         const token = localStorage.getItem("token")
 
@@ -37,7 +42,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
             },
             body: JSON.stringify({
                 name, address, phone, pincode,
-                state: userState, houseno, cart
+                state: userState, houseno, cart, discount
             })
         })
 
@@ -77,6 +82,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
         }
 
         setCart([])
+        localStorage.removeItem("discount")
         navigate("/orders")
     }
     const handleOnlinePayment = async () => {
@@ -89,7 +95,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({ amount: total })
+            body: JSON.stringify({ amount: finalTotal })
         })
 
         const data = await res.json()
@@ -119,7 +125,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
                     },
                     body: JSON.stringify({
                         name, address, phone, pincode,
-                        state: userState, houseno, cart
+                        state: userState, houseno, cart, discount
                     })
                 })
                 await fetch(`${API_URL}/address`, {
@@ -149,7 +155,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
                 }
 
                 setCart([])
-
+                localStorage.removeItem("discount")
                 alert("Payment successful 🎉")
                 navigate("/orders")
             },
@@ -216,7 +222,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
 
                     {/* cart items list */}
                     {cart.map(item => (
-                        <div key={item._id} className="item">
+                        <div key={item.id} className="item">
                             <img style={{ width: "100px" }} src={item.image} alt="" />
                             <span>{item.name}</span>
                             <span>Rs {item.price} × {item.quantity}</span>
@@ -224,7 +230,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
                     ))}
 
                     {/* <hr /> */}
-                    <h3>Total: Rs {total}</h3>
+                    <h3>Total: Rs {finalTotal}</h3>
 
                     {/* place order button */}
                     <button

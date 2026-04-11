@@ -39,14 +39,14 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
 
   return (
     <div className='auth-container'>
-      <div className='heading'>HEY! Welcome Back ,Please Sign In</div>
+      <div className='heading'>Welcome Back To Wonder</div>
       <form onSubmit={handleSignIn}>
         <input type="email" placeholder=' Enter your Email' value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="password" placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
         <button type='submit'>SIGN IN</button>
 
       </form>
-      <p>Don't Have An Account ?<Link to="/SignUp" href="/SignUp">Create Account</Link></p>
+      <p>Don't Have An Account ?<Link to="/SignUp" href="/SignUp"> Create Account</Link></p>
     </div>
   )
 }

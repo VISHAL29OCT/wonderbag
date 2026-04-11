@@ -65,7 +65,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
   const updateQty = async (id, change) => {
     const token = localStorage.getItem("token")
 
-    const res = await fetch(`${API_URL}/update`, {
+    const res = await fetch(`${API_URL}/cart/update`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
