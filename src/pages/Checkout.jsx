@@ -10,9 +10,9 @@ function Checkout() {
     const [orderSuccess, setOrderSuccess] = useState(false)
     const navigate = useNavigate()
     const location = useLocation()
-const discount = location.state?.discount || 0
-    
-const API_URL = import.meta.env.VITE_API_URL
+    const discount = location.state?.discount || 0
+
+    const API_URL = import.meta.env.VITE_API_URL
 
     const [name, setName] = useState("")
     const [address, setAddress] = useState("")
@@ -24,7 +24,7 @@ const API_URL = import.meta.env.VITE_API_URL
     const total = (cart || []).reduce(
         (sum, item) => sum + item.price * item.quantity, 0
     )
-const finalTotal = total - discount
+    const finalTotal = total - discount
 
     const handlePincode = (value) => {
         setPincode(value)
@@ -47,20 +47,20 @@ const finalTotal = total - discount
 
 
     const handleProceed = () => {
-  navigate("/payment", {
-    state: {
-      name,
-      address,
-      phone,
-      pincode,
-      state,
-      houseno,
-      cart,
-      total:total,
-      discount
+        navigate("/payment", {
+            state: {
+                name,
+                address,
+                phone,
+                pincode,
+                state,
+                houseno,
+                cart,
+                total: total,
+                discount
+            }
+        })
     }
-  })
-}
 
 
     useEffect(() => {
@@ -83,13 +83,13 @@ const finalTotal = total - discount
                     setAddress(defaultAddr.address)
                     setState(defaultAddr.state)
                     setPincode(defaultAddr.pincode)
-                    setHouseno(defaultAddr.houseno) 
+                    setHouseno(defaultAddr.houseno)
                 }
             })
     }, [])
 
 
-    
+
 
     if (cart.length === 0 && !orderSuccess) {
         return (
@@ -124,9 +124,8 @@ const finalTotal = total - discount
                             <img style={{ width: "100px" }} src={item.image} alt="" />
                             <div className="item-info">
                                 <h3>{item.name}</h3>
-                                <p>
-                                    price : Rs {item.price} * qty : {item.quantity}
-                                </p>
+                                <p> price : Rs {item.price} </p>
+                                <p> qty : {item.quantity}</p>
                             </div>
                         </div>
                     ))}

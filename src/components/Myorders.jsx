@@ -8,6 +8,7 @@ function Myorders() {
     const [orders, setOrders] = useState([])
     const [openOrderId, setOpenOrderId] = useState(null)
     const API_URL = import.meta.env.VITE_API_URL 
+    
 
     useEffect(() => {
         const token = localStorage.getItem("token")
@@ -61,7 +62,7 @@ function Myorders() {
 
                                 <div>
                                     <p>Order Number</p>
-                                    <h5>#{order._id}</h5>
+                                    <h5>#{order.id || order._id.slice(-6)}</h5>
                                 </div>
 
                                 <div>

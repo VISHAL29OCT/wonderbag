@@ -10,14 +10,15 @@ const express = require('express')
 const Razorpay = require("razorpay")
 
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET
 })
 const app = express()
 const port = 3000
 const cors = require("cors")
 const orderSchema = new mongoose.Schema({
     userId: String,
+    id: "String",
     name: String,
     address: String,
     phone: String,
@@ -71,8 +72,8 @@ app.use(cors())
 app.use(express.static("public"))
 
 const wishlistSchema = new mongoose.Schema({
-  userId: String,
-  items: Array
+    userId: String,
+    items: Array
 })
 
 const Wishlist = mongoose.model("Wishlist", wishlistSchema)
@@ -365,8 +366,14 @@ app.post("/login", async (req, res) => {
     }
 })
 
+function generateOrderId() {
+    const letter = String.fromCharCode(65 + Math.floor(Math.random() * 26)) // A-Z
+    const numbers = Math.floor(1000000 + Math.random() * 9000000) // 7 digit
+    return letter + numbers
+}
+
 app.post("/order", authMiddleware, async (req, res) => {
- console.log("🔥 BACKEND HIT HUA")
+    console.log("🔥 BACKEND HIT HUA")
     console.log("👉 BACKEND RECEIVED DISCOUNT:", req.body.discount)
     const userId = req.user.id
     const { name, address, phone, cart, pincode, state, houseno, discount = 0 } = req.body
@@ -379,14 +386,14 @@ app.post("/order", authMiddleware, async (req, res) => {
     }
 
     const subtotal = cart.reduce(
-  (sum, item) => sum + item.price * item.quantity, 0
-)
+        (sum, item) => sum + item.price * item.quantity, 0
+    )
 
-const total = Math.max(0, subtotal - discount)
+    const total = Math.max(0, subtotal - discount)
 
     const order = {
         userId,
-        id: Date.now(),
+        id: generateOrderId(),
         name, address, phone, cart, state, pincode, houseno,
         date: new Date(),
         total
@@ -394,10 +401,14 @@ const total = Math.max(0, subtotal - discount)
 
     const newOrder = new Order(order)
     await newOrder.save()
-    res.json({ message: "order placed successfully" })
-     
+    res.json({
+        message: "order placed successfully",
+        orderId: newOrder.id
+    })
+
 }
 )
+
 
 app.post("/cart", authMiddleware, async (req, res) => {
     const { product, quantity } = req.body
@@ -424,16 +435,16 @@ app.post("/cart", authMiddleware, async (req, res) => {
 app.post("/address", authMiddleware, async (req, res) => {
     const user = await User.findById(req.user.id)
 
-  const exists = user.addresses.some(
-  a =>
-    a.address === req.body.address &&
-    a.houseno === req.body.houseno &&
-    a.pincode === req.body.pincode
-)
+    const exists = user.addresses.some(
+        a =>
+            a.address === req.body.address &&
+            a.houseno === req.body.houseno &&
+            a.pincode === req.body.pincode
+    )
 
-if (!exists) {
-  user.addresses.push(req.body)
-}
+    if (!exists) {
+        user.addresses.push(req.body)
+    }
     await user.save()
     res.json(user.addresses)
 })
@@ -481,7 +492,7 @@ app.put("/myprofile", authMiddleware, async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(
         req.user.id,
         req.body,
-       { returnDocument: "after" }
+        { returnDocument: "after" }
     )
 
     res.json(updatedUser)
@@ -554,57 +565,57 @@ app.post("/address/update", authMiddleware, async (req, res) => {
 })
 
 app.post("/create-order", authMiddleware, async (req, res) => {
-  const { amount } = req.body
+    const { amount } = req.body
 
-  const options = {
-    amount: amount * 100, // ₹ to paise
-    currency: "INR",
-    receipt: "receipt_" + Date.now()
-  }
+    const options = {
+        amount: amount * 100, // ₹ to paise
+        currency: "INR",
+        receipt: "receipt_" + Date.now()
+    }
 
-  try {
-    const order = await razorpay.orders.create(options)
-    res.json(order)
-  } catch (err) {
-    res.status(500).json({ error: "Order creation failed" })
-  }
+    try {
+        const order = await razorpay.orders.create(options)
+        res.json(order)
+    } catch (err) {
+        res.status(500).json({ error: "Order creation failed" })
+    }
 })
 
 // whislist product 
 
 app.post("/wishlist", authMiddleware, async (req, res) => {
-  const userId = req.user.id
-  const { product } = req.body
+    const userId = req.user.id
+    const { product } = req.body
 
-  let wishlist = await Wishlist.findOne({ userId })
+    let wishlist = await Wishlist.findOne({ userId })
 
-  if (!wishlist) {
-    wishlist = new Wishlist({ userId, items: [] })
-  }
+    if (!wishlist) {
+        wishlist = new Wishlist({ userId, items: [] })
+    }
 
-  const exists = wishlist.items.find(item => item.id === product.id)
+    const exists = wishlist.items.find(item => item.id === product.id)
 
-  if (!exists) {
-    wishlist.items.push(product)
-  }
+    if (!exists) {
+        wishlist.items.push(product)
+    }
 
-  await wishlist.save()
-  res.json(wishlist.items)
+    await wishlist.save()
+    res.json(wishlist.items)
 })
 
 app.get("/wishlist", authMiddleware, async (req, res) => {
-  const wishlist = await Wishlist.findOne({ userId: req.user.id })
-  res.json(wishlist ? wishlist.items : [])
+    const wishlist = await Wishlist.findOne({ userId: req.user.id })
+    res.json(wishlist ? wishlist.items : [])
 })
 
 app.post("/wishlist/remove", authMiddleware, async (req, res) => {
-  const { id } = req.body
-  const wishlist = await Wishlist.findOne({ userId: req.user.id })
+    const { id } = req.body
+    const wishlist = await Wishlist.findOne({ userId: req.user.id })
 
-  wishlist.items = wishlist.items.filter(item => item.id !== id)
+    wishlist.items = wishlist.items.filter(item => item.id !== id)
 
-  await wishlist.save()
-  res.json(wishlist.items)
+    await wishlist.save()
+    res.json(wishlist.items)
 })
 
 

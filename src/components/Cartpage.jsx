@@ -81,9 +81,8 @@ useEffect(() => {
 
                             {/* right side */}
                             <div className="cartdata">
-
+                                <button className='delete' onClick={() => removeItem(item.id)}>🗑︎</button>
                                 <h4>{item.name}</h4>
-                                <button onClick={() => removeItem(item.id)}>🗑︎</button>
                                 <h3>Rs{item.price}</h3>
 
                                 <div className="cartbtn">
