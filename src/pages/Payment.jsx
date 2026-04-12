@@ -223,7 +223,7 @@ function Payment() {
                     {/* cart items list */}
                     {cart.map(item => (
                         <div key={item.id} className="item">
-                            <img style={{ width: "100px" }} src={item.image} alt="" />
+                            <img style={{ width: "100px" , marginBottom :"5px" }} src={item.image} alt="" />
                             <span>{item.name}</span>
                             <span>Rs {item.price} × {item.quantity}</span>
                         </div>

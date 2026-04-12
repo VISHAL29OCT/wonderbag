@@ -120,7 +120,7 @@ body {
     position: fixed;
     width: 99%;
     z-index: 1500;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 .logo {
@@ -184,13 +184,22 @@ body {
     color: gray;
 }
 
-/* .search {
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid white;
-    color: white;
-    padding: 15px;
-} */
+.review {
+    /* border: 1px solid red; */
+    margin-left: 100px;
+}
+
+.review h2 {
+    margin-bottom: 5px;
+}
+
+.review p {
+    margin-bottom: 10px;
+}
+
+.reviewbtn {
+    padding: 10px 15px;
+}
 
 .search::placeholder {
     font-size: 23px;
@@ -237,6 +246,7 @@ body {
     display: none;
     width: 150px;
     transition: 0.3s;
+    z-index: 1500;
 }
 
 .dropdown li a {
@@ -820,9 +830,9 @@ textarea {
 
 .productdetails {
     padding-top: 120px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 50px;
+    display: flex;
+    /* grid-template-columns: repeat(2, 1fr); */
+    gap: 40px;
     min-height: 100vh;
 }
 
@@ -836,7 +846,10 @@ textarea {
 }
 
 .leftimg img {
-    width: 100%;
+    width: 400px;
+    max-width: 100%;
+    height: auto;
+
 
 }
 
@@ -904,17 +917,18 @@ textarea {
     margin-top: 30px;
 }
 
-/* .minusbtn {
-    font-size: 25px;
-    width: 50px;
+.minusbtn,
+.plusbtn {
+    padding: 8px 12px;
+    margin: 5px;
 }
 
 .plusbtn {
     font-size: 25px;
     width: 50px;
-} */
+}
 
-.qty-box {
+*/ .qty-box {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -978,8 +992,10 @@ textarea {
     font-size: larger;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-
+    gap:60px;
+    /* border:1px solid red; */
+    width: fit-content;
+    text-align: center;
 }
 
 .info-answer,
@@ -992,7 +1008,12 @@ textarea {
     font-size: larger;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 30px;
+    /* border:0.1px solid rgb(85, 85, 85); */
+    width: fit-content;
+    margin-top: 10px;
+    text-align: center;
+
 }
 
 .return-answer {
@@ -1693,7 +1714,7 @@ textarea {
 .payment-right {
     flex: 1;
     border: 1px solid rgb(59, 56, 56);
-    padding: 30px;
+    /* padding: 30px; */
     height: fit-content;
     border-radius: 5px;
     background: #ffffff;
@@ -1704,13 +1725,14 @@ textarea {
     background: #ffffff;
     box-shadow: 0 10px 30px rgba(79, 70, 229, 0.08);
     color: black;
-    padding: 25px;
+    padding:15px;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     gap: 12px;
     border: 1px solid grey;
-    width: initial;
+    border-radius: 5px;
+
 }
 
 .payment-wrapper .card-payment h3 {
@@ -1999,6 +2021,11 @@ textarea {
         width: auto;
     }
 
+    .minusbtn,
+    .plusbtn {
+        padding: 6px 10px;
+    }
+
 
     .auth-container .heading {
         font-size: 38px;
@@ -2083,20 +2110,26 @@ textarea {
         margin-top: 60px;
         /* border: 1px solid red; */
         /* margin-left: 10px; */
+        padding-top: 30px;
+        /* color: #0072ff; */
     }
 
     .leftimg {
         margin-left: 0;
+        /* border: 1px solid red ; */
     }
 
     .leftimg img {
 
         height: auto;
         width: auto;
+        /* border: 1px solid rgb(12, 157, 36); */
+        position: relative;
     }
 
     .review {
         margin-top: 10px;
+        margin-left: 10px;
     }
 
     .reviewbtn {
@@ -2170,7 +2203,8 @@ textarea {
 
     /* PRODUCT DETAILS */
     .productdetails {
-        grid-template-columns: 1fr 1fr;
+        display: flex;
+        flex-direction: column;
         margin-left: 0;
         /* border: 1px solid red; */
 
@@ -2265,7 +2299,16 @@ textarea {
         min-height: 100vh;
         color: black;
     }
-
+   .payment-wrapper .item {
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+    color: #333;
+    padding: 8px 0;
+    border-bottom: 1px solid #c1bebe;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
     .order-top {
         display: flex;
         flex-direction: column;

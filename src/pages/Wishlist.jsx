@@ -8,7 +8,7 @@ function Wishlist() {
   useEffect(() => {
     const token = localStorage.getItem("token")
 
-    fetch("http://localhost:3000/wishlist", {
+    fetch("https://wonderbagbackend.onrender.com/wishlist", {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -20,7 +20,7 @@ function Wishlist() {
   const removeItem = async (id) => {
     const token = localStorage.getItem("token")
 
-    const res = await fetch("http://localhost:3000/wishlist/remove", {
+    const res = await fetch("https://wonderbagbackend.onrender.com/wishlist/remove", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
