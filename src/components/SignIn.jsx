@@ -8,7 +8,7 @@ function SignIn() {
   const [password, setPassword] = useState("")
   const [email, setEmail] = useState("")
   const navigate = useNavigate()
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
+const API_URL = import.meta.env.VITE_API_URL 
 
   const handleSignIn = async (e) => {
     e.preventDefault()

@@ -20,7 +20,7 @@ function Home() {
       return
     }
 
-    const res = await fetch("https://wonderbagbackend.onrender.com/contact" || "http://localhost:3000/contact", {
+    const res = await fetch("https://wonderbagbackend.onrender.com/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -46,7 +46,7 @@ function Home() {
 
   const [products, setProducts] = useState([])
   useEffect(() => {
-    fetch("http://localhost:3000/products" || "https://wonderbagbackend.onrender.com//products")
+    fetch("import.meta.env.VITE_API_URL/products")
       .then(res => res.json())
       .then(data => {
         setProducts(data)

@@ -12,7 +12,7 @@ function Checkout() {
     const location = useLocation()
 const discount = location.state?.discount || 0
     
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
+const API_URL = import.meta.env.VITE_API_URL
 
     const [name, setName] = useState("")
     const [address, setAddress] = useState("")

@@ -36,7 +36,7 @@ function AppContent() {
 
     if (!token) return
 
-    fetch("http://localhost:3000/cart", {
+    fetch("import.meta.env.VITE_API_URL/cart", {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -53,7 +53,7 @@ function AppContent() {
       return
     }
 
-    const res = await fetch("http://localhost:3000/cart", {
+    const res = await fetch("import.meta.env.VITE_API_URL/cart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

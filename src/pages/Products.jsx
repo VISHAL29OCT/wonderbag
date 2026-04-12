@@ -8,7 +8,7 @@ const Products = () => {
     const location = useLocation()
     const query = new URLSearchParams(location.search)
     const search = query.get("search")
- const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
+ const API_URL = import.meta.env.VITE_API_URL 
 
     const [activecategory, setActiveCategory] = useState(category || "all")
     const [price, setPrice] = useState(1500)

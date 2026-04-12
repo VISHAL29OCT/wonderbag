@@ -20,7 +20,7 @@ function Wishlist() {
   const removeItem = async (id) => {
     const token = localStorage.getItem("token")
 
-    const res = await fetch("https://wonderbagbackend.onrender.com/wishlist/remove", {
+    const res = await fetch("import.meta.env.VITE_API_URL /wishlist/remove", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

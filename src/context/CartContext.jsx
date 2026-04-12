@@ -6,7 +6,7 @@ export const CartProvider = ({ children }) => {
 
   const [cartOpen, setCartOpen] = useState(false)
   const [cart, setCart] = useState([])
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
+const API_URL = import.meta.env.VITE_API_URL 
 
   useEffect(() => {
     const token = localStorage.getItem("token")

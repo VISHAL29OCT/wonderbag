@@ -12,7 +12,7 @@ function SavedAddress() {
   const [editingIndex, setEditingIndex] = useState(null)
   const [addresses, setAddresses] = useState([])
   const [adding, setAdding] = useState(false)
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
+  const API_URL = import.meta.env.VITE_API_URL 
 
   const makeDefault = async (index) => {
     const token = localStorage.getItem("token")

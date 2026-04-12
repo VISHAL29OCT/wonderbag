@@ -8,8 +8,7 @@ function Payment() {
     const { setCart } = useContext(CartContext)
     const { state } = useLocation()
     const navigate = useNavigate()
-    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
-  
+    const API_URL = import.meta.env.VITE_API_URL 
 
     const [method, setMethod] = useState("COD")
     const [loading, setLoading] = useState(false)
