@@ -9,6 +9,7 @@ function Home() {
   const [about, setAbout] = useState("")
   const [message, setMessage] = useState("")
   const [success, setSuccess] = useState("")
+  const API_URL = import.meta.env.VITE_API_URL
 
 
   const location = useLocation();
@@ -20,7 +21,7 @@ function Home() {
       return
     }
 
-    const res = await fetch("https://wonderbagbackend.onrender.com/contact", {
+    const res = await fetch(`${API_URL}/contact` , {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -46,7 +47,7 @@ function Home() {
 
   const [products, setProducts] = useState([])
   useEffect(() => {
-    fetch("import.meta.env.VITE_API_URL/products")
+    fetch(`${API_URL}/products`)
       .then(res => res.json())
       .then(data => {
         setProducts(data)

@@ -27,6 +27,7 @@ function AppContent() {
 
   const location = useLocation()
   const [search, setSearch] = useState("")
+  const API_URL = import.meta.env.VITE_API_URL
 
   const { cartOpen, setCartOpen } = useContext(CartContext)
   const [cart, setCart] = useState([])
@@ -36,7 +37,7 @@ function AppContent() {
 
     if (!token) return
 
-    fetch("import.meta.env.VITE_API_URL/cart", {
+    fetch(`${API_URL}/cart`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -53,7 +54,7 @@ function AppContent() {
       return
     }
 
-    const res = await fetch("import.meta.env.VITE_API_URL/cart", {
+    const res = await fetch(`${API_URL}/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

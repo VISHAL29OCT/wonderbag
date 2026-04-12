@@ -4,11 +4,12 @@ import "../App.css"
 
 function Wishlist() {
   const [wishlist, setWishlist] = useState([])
+  const API_URL = import.meta.env.VITE_API_URL
 
   useEffect(() => {
     const token = localStorage.getItem("token")
 
-    fetch("https://wonderbagbackend.onrender.com/wishlist", {
+    fetch(`${API_URL}/wishlist`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -20,7 +21,7 @@ function Wishlist() {
   const removeItem = async (id) => {
     const token = localStorage.getItem("token")
 
-    const res = await fetch("import.meta.env.VITE_API_URL /wishlist/remove", {
+    const res = await fetch(`${API_URL}/wishlist/remove`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
