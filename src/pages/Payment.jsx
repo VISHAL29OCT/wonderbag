@@ -100,7 +100,7 @@ function Payment() {
         const data = await res.json()
 
         const options = {
-            key: process.env.REACT_APP_RAZORPAY_KEY,
+            key: import.meta.env.VITE_RAZORPAY_KEY,
             amount: data.amount,
             currency: "INR",
             name: "Your Store",
